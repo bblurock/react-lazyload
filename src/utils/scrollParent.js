@@ -7,7 +7,7 @@ export default (node) => {
     return document.documentElement;
   }
 
-  const excludeStaticParent = node.style.position === 'absolute';
+  const excludeStaticParent = node.style ? node.style.position === 'absolute' : false;
   const overflowRegex = /(scroll|auto)/;
   let parent = node;
 
@@ -27,7 +27,7 @@ export default (node) => {
       continue;
     }
 
-    if (overflowRegex.test(overflow) && overflowRegex.test(overflowX) && overflowRegex.test(overflowY)) {
+    if (overflowRegex.test(overflow) || overflowRegex.test(overflowX) || overflowRegex.test(overflowY)) {
       return parent;
     }
 
